@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  const ProductCard({super.key, required this.productMap});
+  final dynamic productMap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,13 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 140,
-            child: Image.network(
-              "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp",
-              fit: BoxFit.cover,
-            ),
+            height: 120,
+            child: Image.network(productMap['thumbnail'], fit: BoxFit.cover),
           ),
           Text(
-            "Essence Mascara Lash Princess",
+            productMap['title'],
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           ),
           SizedBox(height: 10),

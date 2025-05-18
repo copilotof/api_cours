@@ -30,21 +30,25 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(backgroundColor: Colors.blue),
       body: FutureBuilder(
         future: getProductsResponse(),
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else {
+            Response response = snapshot.data;
+            final dynamic data = response.data;
+            List products = data['products'];
             return Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
               child: GridView.builder(
+                itemCount: products.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisExtent: 280,
+                  mainAxisExtent: 250,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
                 itemBuilder: (context, index) {
-                  return ProductCard();
+                  return ProductCard(productMap: products[index]);
                 },
               ),
             );
